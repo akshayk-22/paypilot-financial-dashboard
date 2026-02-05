@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Advisor Statistics – PayPilot</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/flatly/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    .stat-card {
+      min-height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      background: #f8f9fa;
+      color: #212529;
+      box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.03);
+    }
+    .dropdown-form {
+      margin-bottom: 2rem;
+    }
+    body {
+      background: #222b32;
+    }
+    .card h6 {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+  </style>
+</head>
+<body class="bg-dark text-white">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <img src="{{ url_for('static', filename='LOGO.png') }}" alt="PayPilot" style="height: 30px; margin-right: 8px;" />
+        PayPilot
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+              <img src="{{ url_for('static', filename='profile-pic.png') }}" alt="Profile" class="rounded-circle" style="height: 32px; width: 32px;" />
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow">
+              <li class="dropdown-item-text">👋 Hello, {{ admin.f_name }}</li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="{{ url_for('advanced_settings') }}">⚙️ Advanced Settings</a></li>
+              <li><a class="dropdown-item text-danger" href="{{ url_for('logout') }}">🚪 Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="container py-5">
+    <h2 class="text-center mb-4">Advisor Statistics Dashboard</h2>
+
+    <form method="get" class="dropdown-form text-center">
+      <label for="advisor_id" class="form-label text-white">Select Advisor:</label>
+      <select id="advisor_id" name="advisor_id" class="form-select d-inline-block w-auto" onchange="this.form.submit()">
+        <option value="">-- Select Advisor --</option>
+        {% for adv in advisors %}
+          <option value="{{ adv.acct_id }}" {% if selected_advisor == adv.acct_id %}selected{% endif %}>
+            {{ adv.f_name }} {{ adv.l_name }}
+          </option>
+        {% endfor %}
+      </select>
+    </form>
+
+    <div class="row g-4 justify-content-center text-center">
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="stat-card">
+          <div class="w-100">
+            <h6 class="fw-bold">Customers (Selected Advisor)</h6>
+            <h2>{{ count_customers if count_customers is not none else "—" }}</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-2">
+        <div class="stat-card">
+          <div class="w-100">
+            <h6 class="fw-bold">Min Customers/Advisor</h6>
+            <h2>{{ min_customers if min_customers is not none else "—" }}</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-2">
+        <div class="stat-card">
+          <div class="w-100">
+            <h6 class="fw-bold">Max Customers/Advisor</h6>
+            <h2>{{ max_customers if max_customers is not none else "—" }}</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-2">
+        <div class="stat-card">
+          <div class="w-100">
+            <h6 class="fw-bold">Avg Customers/Advisor</h6>
+            <h2>{{ avg_customers if avg_customers is not none else "—" }}</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="stat-card">
+          <div class="w-100">
+            <h6 class="fw-bold">Total $ Managed (Selected Advisor)</h6>
+            <h2>
+              {% if sum_managed is not none %}
+                ${{ "{:,.2f}".format(sum_managed) }}
+              {% else %}
+                —
+              {% endif %}
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-5">
+      <a href="{{ url_for('admin_dashboard') }}" class="btn btn-primary btn-lg">Manage Accounts</a>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+-- SQLite
+-- Drop existing tables
+DROP TABLE IF EXISTS BILL_CATEGORY;
+DROP TABLE IF EXISTS BILL;
+DROP TABLE IF EXISTS ADVISOR_REVIEWS;
+DROP TABLE IF EXISTS FINANCIAL_PROFILE;
+DROP TABLE IF EXISTS CUSTOMER;
+DROP TABLE IF EXISTS FINANCIAL_ADVISOR;
+DROP TABLE IF EXISTS ADMIN_MANAGES;
+DROP TABLE IF EXISTS ADMIN;
+DROP TABLE IF EXISTS ACCOUNT;
+
+-- Account table
+CREATE TABLE ACCOUNT (
+    acct_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    acct_creation_date DATE DEFAULT (DATE('now'))
+);
+
+-- Admin table
+CREATE TABLE ADMIN (
+    admin_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    acct_id INTEGER NOT NULL,
+    f_name TEXT NOT NULL,
+    l_name TEXT NOT NULL,
+    email TEXT,
+    phone TEXT,
+    FOREIGN KEY (acct_id) REFERENCES ACCOUNT(acct_id) ON DELETE CASCADE
+);
+
+-- Admin manages accounts
+CREATE TABLE ADMIN_MANAGES (
+    admin_id INTEGER NOT NULL,
+    acct_id INTEGER NOT NULL,
+    PRIMARY KEY (admin_id, acct_id),
+    FOREIGN KEY (admin_id) REFERENCES ADMIN(admin_id) ON DELETE CASCADE,
+    FOREIGN KEY (acct_id) REFERENCES ACCOUNT(acct_id) ON DELETE CASCADE
+);
+
+-- Financial Advisor table
+CREATE TABLE FINANCIAL_ADVISOR (
+    advisor_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    acct_id INTEGER NOT NULL,
+    f_name TEXT NOT NULL,
+    l_name TEXT NOT NULL,
+    email TEXT,
+    phone TEXT,
+    FOREIGN KEY (acct_id) REFERENCES ACCOUNT(acct_id) ON DELETE CASCADE
+);
+
+-- Customer table
+CREATE TABLE CUSTOMER (
+    customer_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    acct_id INTEGER NOT NULL,
+    f_name TEXT NOT NULL,
+    l_name TEXT NOT NULL,
+    email TEXT,
+    phone TEXT,
+    b_date DATE,
+    addr TEXT,
+    advisor_id INTEGER,
+    FOREIGN KEY (acct_id) REFERENCES ACCOUNT(acct_id) ON DELETE CASCADE,
+    FOREIGN KEY (advisor_id) REFERENCES FINANCIAL_ADVISOR(advisor_id) ON DELETE SET NULL
+);
+
+-- Financial Profile table
+CREATE TABLE FINANCIAL_PROFILE (
+    profile_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    customer_id INTEGER NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES CUSTOMER(customer_id) ON DELETE CASCADE
+);
+
+-- Advisor Reviews table
+CREATE TABLE ADVISOR_REVIEWS (
+    advisor_id INTEGER NOT NULL,
+    profile_id INTEGER NOT NULL,
+    PRIMARY KEY (advisor_id, profile_id),
+    FOREIGN KEY (advisor_id) REFERENCES FINANCIAL_ADVISOR(advisor_id) ON DELETE CASCADE,
+    FOREIGN KEY (profile_id) REFERENCES FINANCIAL_PROFILE(profile_id) ON DELETE CASCADE
+);
+
+-- Bill table
+CREATE TABLE BILL (
+    bill_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    profile_id INTEGER NOT NULL,
+    bill_provider TEXT,
+    description TEXT,
+    amount NUMERIC,
+    due_date DATE,
+    has_reminder INTEGER DEFAULT 0,
+    is_paid INTEGER DEFAULT 0,
+    FOREIGN KEY (profile_id) REFERENCES FINANCIAL_PROFILE(profile_id) ON DELETE CASCADE
+);
+
+-- Bill Category table
+CREATE TABLE BILL_CATEGORY (
+    bill_id INTEGER NOT NULL,
+    category TEXT NOT NULL,
+    PRIMARY KEY (bill_id, category),
+    FOREIGN KEY (bill_id) REFERENCES BILL(bill_id) ON DELETE CASCADE
+);

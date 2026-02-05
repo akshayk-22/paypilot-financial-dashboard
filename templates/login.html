@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+  <title>PayPilot – Login</title>
+  <!-- Sets the theme for the doc -->
+<link
+  href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.6/dist/flatly/bootstrap.min.css"
+  rel="stylesheet"
+/>
+</head>
+<body class="bg-dark">
+  <div
+    class="container d-flex vh-100 align-items-center justify-content-center"
+  >
+    <div class="card shadow-sm w-100" style="max-width: 380px;">
+      <div class="card-body p-4">
+        <h3 class="card-title text-center mb-4">
+          <img
+            src="{{ url_for('static', filename='LOGO.png') }}"
+            alt="PayPilot"
+            class="mb-2"
+            style="height: 80px;"
+          />
+          <br />
+          Sign In
+        </h3>
+        <form method="POST" action="/">
+          <div class="form-floating mb-3">
+            <input
+              type="username"
+              class="form-control"
+              id="username"
+              name="username"
+              placeholder="name"
+              required
+            />
+            <label for="Username">Username</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              placeholder="Password"
+              required
+            />
+            <label for="password">Password</label>
+          </div>
+          <div class="d-grid mb-3">
+            <button type="submit" class="btn btn-primary btn-lg">
+              Log In
+            </button>
+          </div>
+          <div class="text-center">
+            <a href="/register">Create an account</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

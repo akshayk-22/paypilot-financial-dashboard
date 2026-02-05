@@ -1,0 +1,187 @@
+/* General */
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Login Page */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.login-box {
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    width: 300px;
+    text-align: center;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-container h2 {
+    background-color: #343a40;
+    color: white;
+    padding: 15px;
+    border-radius: 8px 8px 0 0;
+    margin-top: 0;
+    text-align: center;
+}
+
+/* Ribbon Buttons */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.action-buttons button {
+    padding: 10px 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    color: white;
+    cursor: pointer;
+    min-width: 150px;
+}
+
+.action-buttons button:nth-child(1) {
+    background-color: #007bff;
+}
+
+.action-buttons button:nth-child(2) {
+    background-color: #ffc107;
+    color: black;
+}
+
+.action-buttons button:nth-child(3) {
+    background-color: #17a2b8;
+}
+
+/* Card/Section Styling */
+.card-section {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.card-section h3 {
+    text-align: center;
+    margin-top: 0;
+}
+
+.card-section input[type="text"],
+.card-section input[type="number"],
+.card-section input[type="date"] {
+    width: 96%;             
+    margin: 0 auto 12px;    
+    padding: 6px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    display: block;         
+}
+
+
+.card-section button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    width: 100%;
+}
+
+.card-section button:hover {
+    background-color: #218838;
+}
+
+/* Bill Table Section */
+.table-section {
+    margin-top: 20px;
+}
+
+.table-section table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border: 1px solid #dee2e6;
+}
+
+.table-section th, .table-section td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #dee2e6;
+}
+
+.table-section th {
+    background-color: #e9ecef;
+    font-weight: bold;
+}
+
+.table-section tr:hover {
+    background-color: #f1f3f5;
+}
+
+#delete-section ul {
+    list-style-type: none;
+}
+/* Logout Button */
+.logout-button {
+    display: block;
+    margin: 30px auto 0;
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background-color: #bd2130;
+}
